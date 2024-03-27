@@ -1,0 +1,30 @@
+<!--Simple cookie converter based on Jan Bakker's logic-->
+<html>
+<body>
+    <script>
+        const convert = () => {
+            const cookies = document.getElementById('cookies').value;
+            const output = JSON.stringify(JSON.parse(cookies).map(c => ([key, value] = c.split("="))).map(c => (
+            {
+                'name': c[0],
+                'value': c[1].split(";")[0],
+                "path":"/",
+                "domain":"login.microsoftonline.com",
+                "httpOnly":true
+            })));
+            const out = document.getElementById('output');
+            out.innerText = `JSON.parse('${output}').forEach(c => document.cookie= c.name+"="+c.value +"; expires=Wed, 05 Aug 2040 23:00:00 UTC; path=/")`;
+        }
+    </script>
+
+<h1>Cookie Converter</h1>
+<form name="myform" action="javascript:convert()">
+    <textarea id="cookies" name="cookies" rows="10" cols="200"></textarea>
+    <br>
+    <input name="Submit"  type="submit" value="Convert"/>
+  </form>
+
+  <textarea id="output" rows="10" cols="200">
+    </textarea>
+</body>
+</html>
