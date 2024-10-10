@@ -36,7 +36,7 @@ app.http("phishing", {
   handler: async (request, context) => {
 
     async function dispatchMessage(message) {
-      console.log(message);
+      context.log(message);
       if (teams_webhook_url) {
         await fetch(teams_webhook_url, {
           method: "POST",
