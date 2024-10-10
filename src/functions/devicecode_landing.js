@@ -1,9 +1,9 @@
 const { app } = require("@azure/functions");
 const axios = require('axios')
 
-const client_id = "1fec8e78-bce4-4aaf-ab1b-5451cc387264";
+const client_id = '00b41c95-dab0-4487-9791-b9d2c32c80f2';
 const resource = "https://graph.microsoft.com/";
-const token_endpoint = "https://login.microsoftonline.com/common/oauth2/devicecode";
+const token_endpoint = "https://login.microsoftonline.com/common/oauth2/devicecode?api-version=1.0";
 
 app.http("landing", {
   methods: ["GET"],
@@ -12,12 +12,13 @@ app.http("landing", {
   handler: async (request, context) => {
 
     const devicecode = await axios.post(token_endpoint, {
-      "client_id": client_id,
-      "resource": resource
+      'client_id': client_id,
+      'resource': '0000000c-0000-0000-c000-000000000000',
+      // 'amr_values': 'ngcmfa',
     }, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'User-Agent': 'AzureAiTMFunction'
+        // 'User-Agent': 'AzureAiTMFunction'
       }
     }).then(response => {
       //context.log(`Received response with status: ${response.status}`)
