@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@azure/functions": "^4.0.0",
-    "axios": "^1.6.8"
+    "axios": "^1.7.4"
   },
   "main": "src/functions/*.js"
 }
